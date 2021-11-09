@@ -46,9 +46,8 @@
 
 - Setup the template:
 
-  - Create a folder named `src` and create a `index.html` file inside it.
-  - Create a folder named `src` and create a `index.js` file inside it.
-  - Create a folder named `src` and create a `App.js` file inside it.
+  - Create a folder named `public` and create a `index.html` file inside it.
+  - Create a folder named `src` and create `index.js` file and `App.js` file inside it.
   - Create a folder named `src/components`.
   - Create a folder named `src/styles`.
   - Create a folder named `src/pages`.

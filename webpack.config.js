@@ -1,7 +1,9 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-module.exports = {
+let config = {
+	target: 'browserslist',
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'bundle.js'
@@ -11,6 +13,10 @@ module.exports = {
 		alias: {
 			react: path.join(__dirname, 'node_modules', 'react')
 		}
+	},
+	devServer: {
+		host: 'localhost',
+		port: 3000
 	},
 	module: {
 		rules: [
@@ -22,21 +28,26 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.css$/,
-				use: [
-					{
-						loader: 'style-loader'
-					},
-					{
-						loader: 'css-loader'
-					}
-				]
+				test: /\.(s[ac]|c)ss$/,
+				use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
 			}
 		]
 	},
+	devtool: '',
 	plugins: [
 		new HtmlWebPackPlugin({
-			template: './src/index.html'
+			template: './public/index.html',
+			favicon: './src/assets/icons/react.png'
 		})
 	]
+};
+
+module.exports = (env, argv) => {
+	if (argv.mode === 'development') {
+		config.target = 'web';
+		config.devtool = 'source-map';
+		config.plugins.push(new ReactRefreshWebpackPlugin());
+	} else {
+	}
+	return config;
 };
